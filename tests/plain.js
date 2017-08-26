@@ -36,4 +36,16 @@ QUnit.module('Тестируем функцию plain', function () {
 	QUnit.test('Работает с элементами разных типов', function (assert) {
 		assert.deepEqual(plain([['abcde'], [['f'], [null, false], [NaN, NaN], NaN], -Infinity]), ['abcde', 'f', null, false, NaN, NaN, NaN, -Infinity]);
 	});
+
+	QUnit.test('Дополнительные тесты. Работает с массивами высокого уровня вложенности и элементами разных типов',
+		function (assert) {
+		assert.deepEqual(plain([[[[[[[1], 2], 3], 4], 5], 6], 7]), [1, 2, 3, 4, 5, 6, 7],
+			'Работает с массивами высокого уровня вложенности');
+		assert.deepEqual(plain([1, [2, [3, [4, 'hello'], 5, [], [6, NaN], 7]], true]),
+			[1, 2, 3, 4, 'hello', 5, 6, NaN, 7, true],
+			'Работает с массивами высокого уровня вложенности и элементами разных типов');
+		assert.deepEqual(plain([NaN, NaN, [[[[[[[[[[[[['', ''], 'a']]]]]]]]]]]], null, null, '', {prop:undefined}]),
+			[NaN, NaN, '', '', 'a', null, null, '', {prop:undefined}],
+            'Работает с массивами высокого уровня вложенности и объектами');
+	});
 });
