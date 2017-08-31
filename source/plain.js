@@ -1,15 +1,10 @@
 'use strict';
 
-const plain = function (arr) {
-    let result = [];
-
-    for (let i = 0; i < arr.length; i++) {
-        if (Array.isArray(arr[i])) {
-            result = result.concat(plain(arr[i]));
-        } else {
-            result.push(arr[i]);
-        }
+const plain = arr => arr.reduce(function (prev, curr) {
+    if (Array.isArray(curr)) {
+        prev.push(...plain(curr));
+    } else {
+        prev.push(curr);
     }
-
-    return result;
-};
+    return prev;
+}, []);
