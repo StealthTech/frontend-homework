@@ -1,10 +1,10 @@
 'use strict';
 
-const plain = arr => arr.reduce(function (prev, curr) {
-    if (Array.isArray(curr)) {
-        prev.push(...plain(curr));
+const plain = arr => arr.reduce(function (acc, cur) {
+    if (Array.isArray(cur)) {
+        acc.push(...plain(cur));
     } else {
-        prev.push(curr);
+        acc.push(cur);
     }
-    return prev;
+    return acc;
 }, []);
